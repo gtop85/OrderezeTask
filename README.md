@@ -18,5 +18,3 @@ Inside the class library which contains the Image model and the corresponding Se
 We would like you to create a github account and to commit your code progress there. When your project is totally completed just send us an email. 
 
 It is important for us not just to commit at once your project but to commit your progress adding the corresponding comments.
-
-Kind Regards,
