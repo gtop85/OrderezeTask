@@ -1,5 +1,0 @@
-C:\Working Projects\OrderezeTask\OrderezeTask\OrderezeTask\bin\Debug\OrderezeTask.dll
-C:\Working Projects\OrderezeTask\OrderezeTask\OrderezeTask\bin\Debug\OrderezeTask.pdb
-C:\Working Projects\OrderezeTask\OrderezeTask\OrderezeTask\obj\Debug\OrderezeTask.csprojResolveAssemblyReference.cache
-C:\Working Projects\OrderezeTask\OrderezeTask\OrderezeTask\obj\Debug\OrderezeTask.dll
-C:\Working Projects\OrderezeTask\OrderezeTask\OrderezeTask\obj\Debug\OrderezeTask.pdb
