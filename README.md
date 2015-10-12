@@ -5,7 +5,9 @@ to implement these operations by creating a new Web Application.
 The aim of the project is to create a simple environment to manage the images. User may be able to:
 
 1) Show a list of the uploaded images
+
 2) Upload a new image. For this, a new entry to the db and to the azure blob storage must be created.
+
 3) Delete image
 
 For the implementation of this application we would not like to pay much attention on the ui interface you are going to create, but on the 
