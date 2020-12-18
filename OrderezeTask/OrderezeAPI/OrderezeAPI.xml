@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OrderezeAPI</name>
+    </assembly>
+    <members>
+        <member name="M:OrderezeAPI.Controllers.ImagesController.Get">
+            <summary>
+            Get all images
+            </summary>
+            <remarks>
+            </remarks>
+            <response code="200">Returns all images</response>
+        </member>
+        <member name="M:OrderezeAPI.Controllers.ImagesController.Post(OrderezeAPI.ImageModel)">
+             <summary>
+             Upload an image
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST
+                 {
+                    "name": "sampleImage",
+                    "description": "My image",
+                 }
+            
+             </remarks>
+             <param name="imageModel"></param>
+             <response code="200">Returns the id of the uploaded image</response>
+        </member>
+        <member name="M:OrderezeAPI.Controllers.ImagesController.Delete(System.Int32)">
+            <summary>
+            Delete a specific image
+            </summary>
+            <remarks>
+            Delete an image by a given id
+            </remarks>
+            <param name="id"></param>
+            <response code="204">No Content</response>
+            <response code="404">Not Found</response>
+        </member>
+        <member name="T:OrderezeAPI.IImageService">
+            <summary>
+            Service responsible managing all Images operations
+            </summary>
+        </member>
+        <member name="M:OrderezeAPI.IImageService.GetImages">
+            <summary>
+            Returns all images 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OrderezeAPI.IImageService.AddNewImage(OrderezeAPI.ImageModel)">
+            <summary>
+            Adds the supplied <paramref name="image"/> to the system and returns the Id.
+            Part of the operation is to store the Image in the blob storage.
+            </summary>
+        </member>
+        <member name="M:OrderezeAPI.IImageService.DeleteImage(System.Int32)">
+            <summary>
+            Deletes the Image with the supplied <paramref name="id"/> from the system 
+            and deletes the file from the blob storage as well.
+            </summary>
+        </member>
+    </members>
+</doc>
