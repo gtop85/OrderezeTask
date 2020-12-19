@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Threading.Tasks;
 
 namespace EFDataAccessLibrary
 {
@@ -11,28 +12,28 @@ namespace EFDataAccessLibrary
 
         private IDbContextTransaction _transaction;
 
-        public void BeginTransaction()
+        public async Task BeginTransactionAsync()
         {
-            _transaction = Database.BeginTransaction();
+            _transaction = await Database.BeginTransactionAsync();
         }
 
-        public void Commit()
+        public async Task CommitAsync()
         {
             try
             {
-                SaveChanges();
-                _transaction.Commit();
+                await SaveChangesAsync();
+                await _transaction.CommitAsync();
             }
             finally
             {
-                _transaction.Dispose();
+                await _transaction.DisposeAsync();
             }
         }
 
-        public void Rollback()
+        public async Task RollbackAsync()
         {
-            _transaction.Rollback();
-            _transaction.Dispose();
+            await _transaction.RollbackAsync();
+            await _transaction.DisposeAsync();
         }
     }
 }

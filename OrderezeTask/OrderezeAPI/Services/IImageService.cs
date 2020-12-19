@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OrderezeAPI
 {
@@ -17,7 +19,7 @@ namespace OrderezeAPI
         /// Adds the supplied <paramref name="image"/> to the system and returns the Id.
         /// Part of the operation is to store the Image in the blob storage.
         /// </summary>
-        int AddNewImage(ImageModel image);
+        Task<int> AddNewImageAsync(string name, string description, IFormFile file);
 
         /// <summary>
         /// Deletes the Image with the supplied <paramref name="id"/> from the system 

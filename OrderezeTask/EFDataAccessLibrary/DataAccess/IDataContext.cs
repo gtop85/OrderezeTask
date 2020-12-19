@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace EFDataAccessLibrary
 {
@@ -6,8 +7,8 @@ namespace EFDataAccessLibrary
     {
         DbSet<Image> Images { get; set; }
 
-        void BeginTransaction();
-        void Commit();
-        void Rollback();
+        Task BeginTransactionAsync();
+        Task CommitAsync();
+        Task RollbackAsync();
     }
 }

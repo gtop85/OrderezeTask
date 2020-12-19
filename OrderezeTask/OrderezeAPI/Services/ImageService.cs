@@ -1,16 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using EFDataAccessLibrary;
+using Microsoft.AspNetCore.Http;
 
 namespace OrderezeAPI
 {
     public class ImageService : IImageService
     {
         public IDataContext DataContext { get; }
+        public IBlobService BlobService { get; }
 
-        public ImageService(IDataContext dataContext)
+        public ImageService(IDataContext dataContext, IBlobService blobService)
         {
             DataContext = dataContext;
+            BlobService = blobService;
         }
 
         public List<ImageModel> GetImages()
@@ -27,31 +31,32 @@ namespace OrderezeAPI
             return imageModelList;
         }
 
-        public int AddNewImage(ImageModel imageModel)
+        public async Task<int> AddNewImageAsync(string name, string description, IFormFile file)
         {
-            //save to blob storage
-            var pathFromBlob = "";
-
-
-            DataContext.BeginTransaction();
-
-            var image = new Image
+            var pathFromBlob = await BlobService.UploadImageAsync(name, file);
+            if (!string.IsNullOrWhiteSpace(pathFromBlob))
             {
-                Name = imageModel.Name,
-                Description = imageModel.Description,
-                ImagePath = pathFromBlob
-            };
+                await DataContext.BeginTransactionAsync();
 
-            DataContext.Images.Add(image);
+                var image = new Image
+                {
+                    Name = name,
+                    Description = description,
+                    ImagePath = pathFromBlob
+                };
 
-            DataContext.Commit();
+                await DataContext.Images.AddAsync(image);
 
-            return image.Id;
+                await DataContext.CommitAsync();
+
+                return image.Id;
+            }
+            return 0;
         }
 
         public bool DeleteImage(int id)
         {
-            DataContext.BeginTransaction();
+            DataContext.BeginTransactionAsync();
             var image = DataContext.Images.ToList().FirstOrDefault(x => x.Id == id);
             if (image != null)
             {
@@ -60,7 +65,7 @@ namespace OrderezeAPI
                 //remove from blob storage
                 //image.ImagePath;
 
-                DataContext.Commit();
+                DataContext.CommitAsync();
                 return true;
             }
             return false;

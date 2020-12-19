@@ -31,6 +31,7 @@ namespace OrderezeAPI
             });
             services.AddControllers();
             services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IBlobService, BlobService>();
             services.AddTransient<IDataContext, ImageContext>();
 
             services.AddSwaggerGen(c =>

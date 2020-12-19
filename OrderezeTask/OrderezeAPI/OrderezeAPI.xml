@@ -12,22 +12,15 @@
             </remarks>
             <response code="200">Returns all images</response>
         </member>
-        <member name="M:OrderezeAPI.Controllers.ImagesController.Post(OrderezeAPI.ImageModel)">
-             <summary>
-             Upload an image
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 POST
-                 {
-                    "name": "sampleImage",
-                    "description": "My image",
-                 }
-            
-             </remarks>
-             <param name="imageModel"></param>
-             <response code="200">Returns the id of the uploaded image</response>
+        <member name="M:OrderezeAPI.Controllers.ImagesController.PostAsync(System.String,System.String)">
+            <summary>
+            Upload an image
+            </summary>
+            <remarks>
+            </remarks>
+            <param name="name"></param>
+            <param name="description"></param>
+            <response code="200">Returns the id of the uploaded image</response>
         </member>
         <member name="M:OrderezeAPI.Controllers.ImagesController.Delete(System.Int32)">
             <summary>
@@ -51,7 +44,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:OrderezeAPI.IImageService.AddNewImage(OrderezeAPI.ImageModel)">
+        <member name="M:OrderezeAPI.IImageService.AddNewImageAsync(System.String,System.String,Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             Adds the supplied <paramref name="image"/> to the system and returns the Id.
             Part of the operation is to store the Image in the blob storage.

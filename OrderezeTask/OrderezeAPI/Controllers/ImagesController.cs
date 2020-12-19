@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OrderezeAPI.Controllers
 {
@@ -35,22 +36,34 @@ namespace OrderezeAPI.Controllers
         /// Upload an image
         /// </summary>
         /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST
-        ///     {
-        ///        "name": "sampleImage",
-        ///        "description": "My image",
-        ///     }
-        ///
         /// </remarks>
-        /// <param name="imageModel"></param>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
         /// <response code="200">Returns the id of the uploaded image</response>
         [HttpPost]
+        [Consumes("multipart/form-data")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
-        public ActionResult<int> Post([FromBody] ImageModel imageModel)
+        public async Task<ActionResult<int>> PostAsync([FromForm] string name, [FromForm] string description)
         {
-            return Ok(_imageService.AddNewImage(imageModel));
+            var formCollection = await Request.ReadFormAsync();
+            if (string.IsNullOrWhiteSpace(name) || formCollection.Files.Count != 1 || !CheckFile(formCollection))
+                return BadRequest();
+
+            var result = await _imageService.AddNewImageAsync(name, description, formCollection.Files[0]);
+            if (result != 0) return Ok(result);
+            else return StatusCode(500);
+        }
+
+        private static bool CheckFile(IFormCollection formCollection)
+        {
+            var file = formCollection.Files[0];
+            var AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
+            var ext = file.FileName[file.FileName.LastIndexOf('.')..];
+            var extension = ext.ToLower();
+
+            var checkSize = file.Length > 0 && file.Length < 1024 * 1024 * 2;
+
+            return checkSize && AllowedFileExtensions.Contains(extension);
         }
 
         /// <summary>
