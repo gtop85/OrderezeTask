@@ -4,7 +4,7 @@
         <name>OrderezeAPI</name>
     </assembly>
     <members>
-        <member name="M:OrderezeAPI.Controllers.ImagesController.Get">
+        <member name="M:OrderezeAPI.Controllers.ImagesController.GetAsync">
             <summary>
             Get all images
             </summary>
@@ -40,7 +40,7 @@
             Service responsible managing all Images operations
             </summary>
         </member>
-        <member name="M:OrderezeAPI.IImageService.GetImages">
+        <member name="M:OrderezeAPI.IImageService.GetImagesAsync">
             <summary>
             Returns all images 
             </summary>

@@ -1,5 +1,4 @@
 ﻿using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -64,8 +63,6 @@ namespace OrderezeAPI
         {
             try
             {
-                var uri = (Container.Uri.ToString().Substring(0));
-
                 var fileName = imagePath.Substring(Container.Uri.ToString().Length + 1);
                 BlobClient blob = Container.GetBlobClient(Uri.UnescapeDataString(fileName));
                 var res = await blob.DeleteIfExistsAsync();

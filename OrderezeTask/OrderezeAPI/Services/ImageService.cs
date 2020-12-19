@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EFDataAccessLibrary;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace OrderezeAPI
 {
@@ -17,9 +18,9 @@ namespace OrderezeAPI
             BlobService = blobService;
         }
 
-        public List<ImageModel> GetImages()
+        public async Task<List<ImageModel>> GetImagesAsync()
         {
-            var imageList = DataContext.Images.ToList();
+            var imageList = await DataContext.Images.ToListAsync();
             var imageModelList = imageList.Select(a => new ImageModel()
             {
                 Id = a.Id,

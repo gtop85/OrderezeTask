@@ -27,9 +27,9 @@ namespace OrderezeAPI.Controllers
         /// <response code="200">Returns all images</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ImageModel>))]
-        public ActionResult<List<ImageModel>> Get()
+        public async Task<ActionResult<List<ImageModel>>> GetAsync()
         {
-            return Ok(_imageService.GetImages());
+            return Ok(await _imageService.GetImagesAsync());
         }
 
         /// <summary>

@@ -13,7 +13,7 @@ namespace OrderezeAPI
         /// Returns all images 
         /// </summary>
         /// <returns></returns>
-        List<ImageModel> GetImages();
+        Task<List<ImageModel>> GetImagesAsync();
 
         /// <summary>
         /// Adds the supplied <paramref name="image"/> to the system and returns the Id.
