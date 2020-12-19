@@ -54,19 +54,21 @@ namespace OrderezeAPI
             return 0;
         }
 
-        public bool DeleteImage(int id)
+        public async Task<bool> DeleteImageAsync(int id)
         {
-            DataContext.BeginTransactionAsync();
             var image = DataContext.Images.ToList().FirstOrDefault(x => x.Id == id);
             if (image != null)
             {
-                DataContext.Images.Remove(image);
+                var result = await BlobService.RemoveImageAsync(image.ImagePath);
 
-                //remove from blob storage
-                //image.ImagePath;
+                if (result)
+                {
+                    await DataContext.BeginTransactionAsync();
+                    DataContext.Images.Remove(image);
+                    await DataContext.CommitAsync();
 
-                DataContext.CommitAsync();
-                return true;
+                    return true;
+                }
             }
             return false;
         }

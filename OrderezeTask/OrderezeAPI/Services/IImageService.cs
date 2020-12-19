@@ -25,6 +25,6 @@ namespace OrderezeAPI
         /// Deletes the Image with the supplied <paramref name="id"/> from the system 
         /// and deletes the file from the blob storage as well.
         /// </summary>
-        bool DeleteImage(int id);
+        Task<bool> DeleteImageAsync(int id);
     }
 }

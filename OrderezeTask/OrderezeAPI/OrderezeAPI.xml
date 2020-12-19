@@ -21,8 +21,10 @@
             <param name="name"></param>
             <param name="description"></param>
             <response code="200">Returns the id of the uploaded image</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Interval Server Error</response>
         </member>
-        <member name="M:OrderezeAPI.Controllers.ImagesController.Delete(System.Int32)">
+        <member name="M:OrderezeAPI.Controllers.ImagesController.DeleteAsync(System.Int32)">
             <summary>
             Delete a specific image
             </summary>
@@ -50,7 +52,7 @@
             Part of the operation is to store the Image in the blob storage.
             </summary>
         </member>
-        <member name="M:OrderezeAPI.IImageService.DeleteImage(System.Int32)">
+        <member name="M:OrderezeAPI.IImageService.DeleteImageAsync(System.Int32)">
             <summary>
             Deletes the Image with the supplied <paramref name="id"/> from the system 
             and deletes the file from the blob storage as well.

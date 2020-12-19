@@ -40,6 +40,8 @@ namespace OrderezeAPI.Controllers
         /// <param name="name"></param>
         /// <param name="description"></param>
         /// <response code="200">Returns the id of the uploaded image</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="500">Interval Server Error</response>
         [HttpPost]
         [Consumes("multipart/form-data")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
@@ -79,9 +81,9 @@ namespace OrderezeAPI.Controllers
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            var result = _imageService.DeleteImage(id);
+            var result = await _imageService.DeleteImageAsync(id);
 
             if (result)
                 return NoContent();

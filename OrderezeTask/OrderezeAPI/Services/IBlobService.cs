@@ -7,7 +7,7 @@ namespace OrderezeAPI
     {
         Task<string> UploadImageAsync(string name, IFormFile file);
 
-        bool DeleteImage();
+        Task<bool> RemoveImageAsync(string fileName);
     }
 }
 
