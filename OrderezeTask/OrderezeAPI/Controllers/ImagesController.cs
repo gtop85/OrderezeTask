@@ -37,28 +37,25 @@ namespace OrderezeAPI.Controllers
         /// </summary>
         /// <remarks>
         /// </remarks>
-        /// <param name="name"></param>
-        /// <param name="description"></param>
+        /// <param name="imageModel"></param>
         /// <response code="200">Returns the id of the uploaded image</response>
         /// <response code="400">Bad Request</response>
         /// <response code="500">Interval Server Error</response>
         [HttpPost]
         [Consumes("multipart/form-data")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
-        public async Task<ActionResult<int>> PostAsync([FromForm] string name, [FromForm] string description)
+        public async Task<ActionResult<int>> PostAsync([FromForm] ImageModel imageModel)
         {
-            var formCollection = await Request.ReadFormAsync();
-            if (string.IsNullOrWhiteSpace(name) || formCollection.Files.Count != 1 || !CheckFile(formCollection))
+            if (string.IsNullOrWhiteSpace(imageModel.Name) || !CheckFile(imageModel.ImageFile))
                 return BadRequest();
 
-            var result = await _imageService.AddNewImageAsync(name, description, formCollection.Files[0]);
+            var result = await _imageService.AddNewImageAsync(imageModel);
             if (result != 0) return Ok(result);
             else return StatusCode(500);
         }
 
-        private static bool CheckFile(IFormCollection formCollection)
+        private static bool CheckFile(IFormFile file)
         {
-            var file = formCollection.Files[0];
             var AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
             var ext = file.FileName[file.FileName.LastIndexOf('.')..];
             var extension = ext.ToLower();

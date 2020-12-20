@@ -32,17 +32,17 @@ namespace OrderezeAPI
             return imageModelList;
         }
 
-        public async Task<int> AddNewImageAsync(string name, string description, IFormFile file)
+        public async Task<int> AddNewImageAsync(ImageModel imageModel)
         {
-            var pathFromBlob = await BlobService.UploadImageAsync(name, file);
+            var pathFromBlob = await BlobService.UploadImageAsync(imageModel.Name, imageModel.ImageFile);
             if (!string.IsNullOrWhiteSpace(pathFromBlob))
             {
                 await DataContext.BeginTransactionAsync();
 
                 var image = new Image
                 {
-                    Name = name,
-                    Description = description,
+                    Name = imageModel.Name,
+                    Description = imageModel.Description,
                     ImagePath = pathFromBlob
                 };
 

@@ -29,7 +29,7 @@ namespace OrderezeAPI
                 string fileName = GenerateFileName(name);
                 BlobClient blob = Container.GetBlobClient(fileName);
 
-                await using (var stream = File.Create(name))
+                await using (var stream =  new MemoryStream())
                 {
                     await file.CopyToAsync(stream);
                     stream.Position = 0;
@@ -41,10 +41,6 @@ namespace OrderezeAPI
             {
                 //throw new Exception("Something went wrong. Please try again later.");
             }
-            finally
-            {
-                File.Delete(name);
-            }
             return string.Empty;
         }
 
@@ -55,7 +51,7 @@ namespace OrderezeAPI
             string strFileName =
                 DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd") +
                 "/" + DateTime.Now.ToUniversalTime().ToString("yyyyMMdd\\THHmmssfff") +
-                "." + strName[strName.Length - 1];
+                "." + strName[strName.Length - 1].Replace(" ", "");
             return strFileName;
         }
 
