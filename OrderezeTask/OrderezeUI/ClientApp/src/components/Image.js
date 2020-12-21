@@ -50,10 +50,24 @@ export default function Image(props) {
 
     const validate = () => {
         let temp = {}
-        temp.name = values.name == "" ? false : true;
-        temp.imageSrc = values.imageSrc == "" ? false : true;
+        temp.name = values.name === "" ? false : true;
+        temp.imageSrc = values.imageSrc === "" ? false : true;
+
+        var size = parseFloat(values.imageFile.size / (1024 * 1024)).toFixed(2);
+        if (size > 2 || !values.imageFile.name?.match(/\.(jpg|png|gif)$/)) {
+            temp.imageSrc = false;
+            alert('Please select a .jpg, .png and .gif file up to 2MB');
+        }
+        if (values.name.length > 100){
+            temp.name = false;
+            alert('Please type a name up to 100 characters');
+        } 
+        if (values.description > 300){
+            temp.description = false;
+            alert('Please type a description up to 300 characters');
+        } 
         setErrors(temp)
-        return Object.values(temp).every(x => x == true)
+        return Object.values(temp).every(x => x === true)
     }
 
     const resetForm = () => {
@@ -73,7 +87,7 @@ export default function Image(props) {
         }
     }
 
-    const applyErrorClass = field => ((field in errors && errors[field] == false) ? ' invalid-field' : '')
+    const applyErrorClass = field => ((field in errors && errors[field] === false) ? ' invalid-field' : '')
 
 
     return (
@@ -83,7 +97,7 @@ export default function Image(props) {
             </div>
             <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
                 <div className="card">
-                    <img src={values.imageSrc} className="card-img-top" />
+                    <img alt="&#xf03e;" src={values.imageSrc} className="card-img-top preview img-thumbnail" />
                     <div className="card-body">
                         <div className="form-group">
                             <label>Select a .jpg, .png and .gif file up to 2MB</label>
@@ -91,7 +105,7 @@ export default function Image(props) {
                                 onChange={showPreview} id="image-uploader" />
                         </div>
                         <div className="form-group">
-                            <input className={"form-control" + applyErrorClass('name')} placeholder="Image Name" name="name"
+                            <input className={"form-control" + applyErrorClass('name')} placeholder="Image name" name="name"
                                 value={values.name}
                                 onChange={handleInputChange} />
                         </div>

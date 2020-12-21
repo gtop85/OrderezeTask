@@ -7,10 +7,24 @@ code {
   color: #E01A76;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.jumbotron{
+  color: #FFFFFF;
+  background-color:#007bff !important;
+  }
+
+.card-img-top {
+  object-fit: contain;
+  height: 25vh;
+}
+
+img.preview { 
+  font-family: 'Font Awesome 5 Free'; 
+  font-size: 15vh;
+  text-align: center;
+}
+
+button, input {
+  overflow: hidden; 
 }
 
 .invalid-field{
@@ -41,9 +55,9 @@ table div.card-body {
 }
 
 table div.card img {
-  width: 175px;
-  height: 175px;
-  margin: 30px;
+    width: 175px;
+    height: 175px;
+    margin: 30px;
 }
 
 table div.card .delete-button {

@@ -27,7 +27,7 @@ namespace OrderezeAPI
                 Name = a.Name,
                 Description = a.Description,
                 ImagePath = a.ImagePath
-            }).ToList();
+            }).OrderByDescending(x => x.Id).ToList();
 
             return imageModelList;
         }

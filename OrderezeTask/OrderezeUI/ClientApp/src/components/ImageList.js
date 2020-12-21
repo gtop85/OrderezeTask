@@ -1,15 +1,14 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import Image from './Image';
+import * as Constants from '../constants/constants';
 
 export default function ImageList() {
     const [images, setImages] = useState([])
 
-    useEffect(() => {
-        refreshImageList();
-    }, [])
+    useEffect(refreshImageList, [])
 
-    const imageAPI = (url = 'http://localhost:61374/api/images/') => {
+    const imageAPI = (url = Constants.API_URL) => {
         return {
             fetchAll: () => axios.get(url),
             create: newRecord => axios.post(url, newRecord),
@@ -30,7 +29,10 @@ export default function ImageList() {
                     onSuccess();
                     refreshImageList();
                 })
-                .catch(err => console.log(err))       
+                .catch(err => {
+                    console.log(err)
+                    alert('Something went wrong')
+                })       
     }
 
     const onDelete = (e, id) => {
@@ -42,7 +44,7 @@ export default function ImageList() {
 
     const imageCard = data => (
         <div className="card">
-            <img src={data.imagePath} className="card-img-top" ></img>
+            <img alt="" src={data.imagePath} className="card-img-top" ></img>
             <div className="card-body">
                 <h5>{data.name}</h5>
                 <span>{data.description}</span><br/>
@@ -67,6 +69,9 @@ export default function ImageList() {
                 />
             </div>
         <div className="col-md-8">
+            <div className="container text-center">
+                <p className="lead">Uploaded images</p>
+            </div>
             <table>
                 <tbody>
                     {
